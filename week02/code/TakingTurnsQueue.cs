@@ -40,11 +40,19 @@ public class TakingTurnsQueue
         else
         {
             Person person = _people.Dequeue();
-            if (person.Turns > 1)
+            
+            // CORRECCIÓN: Si tiene 0 o menos turnos, se considera infinito y se vuelve a encolar sin restar.
+            if (person.Turns <= 0)
+            {
+                _people.Enqueue(person);
+            }
+            // Si tiene más de 1 turno, consume uno y vuelve a la cola.
+            else if (person.Turns > 1)
             {
                 person.Turns -= 1;
                 _people.Enqueue(person);
             }
+            // Si tiene exactamente 1 turno, no se vuelve a encolar (se consume su último turno).
 
             return person;
         }
