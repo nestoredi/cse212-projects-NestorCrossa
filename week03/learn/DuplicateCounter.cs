@@ -22,9 +22,22 @@
         Console.WriteLine($"Number of duplicates : {CountDuplicates(data)}");
     }
 
-    private static int CountDuplicates(int[] data)
+   private static int CountDuplicates(int[] data)
+{
+    // Creamos un conjunto para almacenar los números únicos que vamos viendo
+    HashSet<int> seenNumbers = new HashSet<int>();
+    int duplicateCount = 0;
+
+    foreach (int number in data)
     {
-        // Add code here.
-        return 0;
+        // .Add() intenta agregar el número. 
+        // Si devuelve false, significa que el número YA estaba en el conjunto (es un duplicado).
+        if (!seenNumbers.Add(number))
+        {
+            duplicateCount++;
+        }
     }
+
+    return duplicateCount;
+}
 }
