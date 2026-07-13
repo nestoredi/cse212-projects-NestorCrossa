@@ -24,7 +24,8 @@ public class Translator
     /// <returns>fixed array of divisors</returns>
     public void AddWord(string fromWord, string toWord)
     {
-        // ADD YOUR CODE HERE
+        // Agrega o actualiza el par clave-valor en el diccionario
+        _words[fromWord] = toWord;
     }
 
     /// <summary>
@@ -32,9 +33,15 @@ public class Translator
     /// </summary>
     /// <param name="fromWord">The word to translate</param>
     /// <returns>The translated word or "???" if no translation is available</returns>
-    public string Translate(string fromWord)
+   public string Translate(string fromWord)
     {
-        // ADD YOUR CODE HERE
-        return "";
+        // Verificamos si el diccionario contiene la palabra
+        if (_words.TryGetValue(fromWord, out string? translation))
+        {
+            return translation;
+        }
+        
+        // Si no se encuentra, devolvemos los signos de interrogación
+        return "???";
     }
 }
