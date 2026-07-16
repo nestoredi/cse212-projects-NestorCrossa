@@ -23,14 +23,33 @@ public class Basketball
         reader.TextFieldType = FieldType.Delimited;
         reader.SetDelimiters(",");
         reader.ReadFields(); // ignore header row
-        while (!reader.EndOfData) {
+       while (!reader.EndOfData) {
             var fields = reader.ReadFields()!;
             var playerId = fields[0];
-            var points = int.Parse(fields[8]);
+            
+            // Validar que el campo de puntos no esté vacío antes de convertirlo
+            var points = string.IsNullOrEmpty(fields[8]) ? 0 : int.Parse(fields[8]);
+
+            // --- PASO 1: Agregar o actualizar los puntos del jugador en el mapa ---
+            if (players.ContainsKey(playerId)) {
+                players[playerId] += points;
+            } else {
+                players[playerId] = points;
+            }
         }
 
-        Console.WriteLine($"Players: {{{string.Join(", ", players)}}}");
+        // --- PASO 2: Ordenar y obtener los 10 mejores ---
+        // Convertimos el diccionario en una lista/matriz ordenada de forma descendente por el valor (puntos)
+        var sortedPlayers = players.OrderByDescending(pair => pair.Value).Take(10).ToArray();
 
-        var topPlayers = new string[10];
+        // --- PASO 3: Mostrar los resultados en una tabla ---
+        Console.WriteLine("\n--- TOP 10 PLAYERS BY CAREER POINTS ---");
+        Console.WriteLine(string.Format("{0,-15} | {1,-10}", "Player ID", "Total Points"));
+        Console.WriteLine(new string('-', 30));
+
+        foreach (var player in sortedPlayers)
+        {
+            Console.WriteLine(string.Format("{0,-15} | {1,-10:N0}", player.Key, player.Value));
+        }
     }
 }
