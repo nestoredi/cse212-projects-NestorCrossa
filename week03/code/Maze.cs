@@ -32,7 +32,16 @@ public class Maze
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        var currentPosition = (_currX, _currY);
+        // El índice 0 representa la dirección 'left' (izquierda)
+        if (_mazeMap.TryGetValue(currentPosition, out var directions) && directions[0])
+        {
+            _currX -= 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -41,7 +50,16 @@ public class Maze
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+       var currentPosition = (_currX, _currY);
+        // El índice 1 representa la dirección 'right' (derecha)
+        if (_mazeMap.TryGetValue(currentPosition, out var directions) && directions[1])
+        {
+            _currX += 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -50,7 +68,16 @@ public class Maze
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        var currentPosition = (_currX, _currY);
+        // El índice 2 representa la dirección 'up' (arriba)
+        if (_mazeMap.TryGetValue(currentPosition, out var directions) && directions[2])
+        {
+            _currY -= 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     /// <summary>
@@ -59,7 +86,16 @@ public class Maze
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        var currentPosition = (_currX, _currY);
+        // El índice 3 representa la dirección 'down' (abajo)
+        if (_mazeMap.TryGetValue(currentPosition, out var directions) && directions[3])
+        {
+            _currY += 1;
+        }
+        else
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
     }
 
     public string GetStatus()
